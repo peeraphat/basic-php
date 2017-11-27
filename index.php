@@ -1,5 +1,5 @@
 <?php 
-    require('config/database.php')
+    require_once('config/database.php')
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,9 @@
     <h1>Home page</h1>
     <h3>welcome to my site</h3>
     <p>
-        <a href="login.php">login</a>
+        <a href="login.php">Login</a>
+        <br />
+        <a href="register.php">Register</a>
     </p>
 </body>
 </html>
