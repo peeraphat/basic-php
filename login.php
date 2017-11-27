@@ -1,6 +1,9 @@
 <?php 
     session_start();
     require_once('config/database.php');
+    if(isset($_SESSION['username'])){
+        header('Location: home.php');
+    }
     if(isset($_GET['method'])) {
         if($_GET['method'] =="login") {
             $username = $_POST['username'];
