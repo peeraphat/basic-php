@@ -18,6 +18,7 @@
                 $sql = "INSERT INTO table_member (member_username, member_password, member_name, member_lastName, member_email, member_gender) Values ('$username', '$password', '$name', '$lastName', '$email', '$gender')";
                 $result = $dbh->exec($sql);
                 if($result) {
+                    $_SESSION['userId'] = $result["member_id"];
                     $_SESSION['username'] = $username;
                     $_SESSION['role'] = '1';
                     header('Location: dashboard.php');
