@@ -23,6 +23,7 @@
             if(!empty($result)) {
                 if($password === $result["member_password"]) {
                     echo "pass";
+                    $_SESSION['userId'] = $result["member_id"];
                     $_SESSION['username'] = $result["member_username"];
                     $_SESSION['role'] = $results["member_role"];
                     header('Location: dashboard.php');
