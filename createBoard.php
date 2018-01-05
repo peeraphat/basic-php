@@ -17,7 +17,8 @@
             $result = $dbh->exec($sql);
             if($result) {
                 echo 'Created success.';
-                // echo '<meta http-equiv="refresh" content="2;url=dashboard.php">';
+                echo '<meta http-equiv="refresh" content="2;url=dashboard.php">';
+                echo '<br/>';
                 echo '<a href="javascript:location.href=\'dashboard.php\'">Home</a>';
                 exit();
             } else {
