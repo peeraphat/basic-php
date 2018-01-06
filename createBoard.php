@@ -13,6 +13,9 @@
             $content = $_POST['content'];
             $userId = $_SESSION['userId'];
 
+            $topic = addslashes($topic);
+            $content = addslashes($content);
+
             $sql = "INSERT INTO table_board (board_topic, board_content, board_member_id ) VALUES ('$topic', '$content', '$userId')";
             $result = $dbh->exec($sql);
             if($result) {

@@ -1,8 +1,31 @@
 <?php
     session_start();
+    require_once('config/database.php');
     if(!isset($_SESSION['username'])){
         header('Location: login.php');
         exit();
+    }
+    //// QUERY OWNER BOARD
+    $sqlGetBoard = "SELECT * FROM table_board WHERE board_member_id='$_SESSION[userId]'";
+    $queryGetBoard = $dbh->query($sqlGetBoard);
+    $resultsGetBoard = $queryGetBoard->fetchAll(PDO::FETCH_ASSOC);
+
+    if(isset($_GET['action'])) {
+      if($_GET['action'] == 'delete'){
+        $boardId = $_GET['id'];
+        $sqlDeleteBoard = "DELETE FROM table_board WHERE board_id=$boardId";
+        $execDeleteBoard = $dbh->exec($sqlDeleteBoard);
+        if($execDeleteBoard) {
+          echo 'delete success.';
+          echo "<meta http-equiv='refresh' content='1;url=dashboard.php'>";
+          exit();
+        } else {
+          echo 'Sorry, Something error';
+          echo "<br/>";
+          echo "<a href='javascript:history.back()'>back</a>";
+          exit();
+        }
+      }
     }
 ?>
 <!doctype html>
@@ -42,6 +65,32 @@
           </ul>
         </div>
       </nav>
+      <section style="margin-top:20px">
+      <h2>MY TOPIC.</h2>
+      <table border="1">
+        <tr>
+          <th>#</th>
+          <th>Topic</th>
+          <th>Date</th>
+          <th>Options</th>
+        </tr>
+        <?php 
+          foreach ($resultsGetBoard as $key => $value) {
+        ?>
+          <tr>
+            <td><?php echo $key+1; ?></td>
+            <td><?php echo $value["board_topic"]; ?></td>
+            <td><?php echo $value["board_date"]; ?></td>
+            <td>
+              <a href="edit.php?action=edit&id=<?php echo $value['board_id']; ?>">Edit</a> |
+              <a href="?action=delete&id=<?php echo $value['board_id']; ?>">Delete</a>
+            </td>
+          </tr>
+        <?php
+          }
+        ?>
+      </table>
+      </section>
     </header>
 
 
